@@ -1,5 +1,5 @@
 const axios = require('axios');
-const { API_KEY } = require('./API_KEY');
+require("dotenv").config();
 
 const { 
   GraphQLObjectType, 
@@ -9,7 +9,7 @@ const {
   GraphQLSchema, 
 } = require('graphql');
 
-const headers = { 'X-Auth-Token': API_KEY };
+const headers = { 'X-Auth-Token': process.env.REACT_APP_API_KEY };
 
 // Competition Type
 const CompetitionType = new GraphQLObjectType({
