@@ -6,22 +6,54 @@ const {
   GraphQLInt, 
   GraphQLString, 
   GraphQLList, 
-  GraphQLSchema 
+  GraphQLSchema, 
 } = require('graphql');
 
 const headers = { 'X-Auth-Token': API_KEY };
 
 // Competition Type
 const CompetitionType = new GraphQLObjectType({
-  name: 'Competitions',
+	name: "Competitions",
+	fields: () => ({
+		id: { type: GraphQLInt },
+    area: { type: AreaType },
+    name: { type: GraphQLString },
+		plan: { type: GraphQLString },
+		currentSeason: { type: CurrentSeasonType },
+		lastUpdated: { type: GraphQLString }
+	}),
+});
+
+const AreaType = new GraphQLObjectType({
+	name: "Area",
+	fields: () => ({
+		id: { type: GraphQLInt },
+		name: { type: GraphQLString },
+		countryCode: { type: GraphQLString },
+		ensignUrl: { type: GraphQLString }
+	}),
+});
+
+const CurrentSeasonType = new GraphQLObjectType({
+  name: 'CurrentSeason',
   fields: () => ({
     id: { type: GraphQLInt },
-    name: { type: GraphQLString },
-    current_season_start_date: { type: GraphQLString },
-    current_season_end_date: { type: GraphQLString },
-    plan: { type: GraphQLString },
-    winner: { type: GraphQLString },
+    startDate: { type: GraphQLString },
+    endDate: { type: GraphQLString },
+    currentMatchday: { type: GraphQLString },
+    winner: { type: WinnerType }
   })
+});
+
+const WinnerType = new GraphQLObjectType({
+	name: "Winner",
+	fields: () => ({
+		id: { type: GraphQLInt },
+		name: { type: GraphQLString },
+		shortName: { type: GraphQLString },
+		tla: { type: GraphQLString },
+		crestUrl: { type: GraphQLString }
+	}),
 });
 
 // Team Type
@@ -33,6 +65,7 @@ const TeamType = new GraphQLObjectType({
     venue: { type: GraphQLString }
   })
 });
+
 
 // Root Query
 const RootQuery = new GraphQLObjectType({
