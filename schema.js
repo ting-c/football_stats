@@ -18,7 +18,8 @@ const CompetitionType = new GraphQLObjectType({
 		id: { type: GraphQLInt },
     area: { type: AreaType },
     name: { type: GraphQLString },
-		plan: { type: GraphQLString },
+    plan: { type: GraphQLString },
+    emblemUrl: { type: GraphQLString },
 		currentSeason: { type: CurrentSeasonType },
 		lastUpdated: { type: GraphQLString }
 	}),

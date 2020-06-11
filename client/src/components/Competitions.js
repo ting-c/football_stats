@@ -2,6 +2,7 @@ import React from "react";
 import { gql } from 'apollo-boost';
 import { useQuery } from '@apollo/react-hooks';
 import CompetitionItem from './CompetitionItem';
+import { FREE_TIER_COMPETITIONS } from '../FREE_TIER';
 
 const COMPETITIONS_QUERY = gql`
   query CompetitionsQuery {
@@ -15,19 +16,6 @@ const COMPETITIONS_QUERY = gql`
         ensignUrl
       }
       plan
-      currentSeason {
-        id
-        startDate
-        endDate
-        currentMatchday
-        winner {
-          id
-		      name
-		      shortName
-		      tla
-		      crestUrl
-        }
-      }
       lastUpdated
     }
   }
@@ -41,13 +29,15 @@ function Competition() {
     console.log('Err', error);
     return <p>Error</p>;
   }
-  if (data) console.log(data);
 
 	return (
     <div>
       <h1 className="display-4 my-3">Competitions</h1>
       {
-        data.competitions.map( competition => 
+        data.competitions
+        .filter(competition => 
+          Object.values(FREE_TIER_COMPETITIONS).includes(parseInt(competition.id)))
+        .map( competition => 
           <CompetitionItem {...competition}  key={competition.id}/> )
       }
     </div>
