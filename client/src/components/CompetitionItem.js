@@ -6,7 +6,6 @@ export default function CompetitionItem({
   name,
   area,
   plan,
-  currentSeason,
   lastUpdated }) {
   return (
     <div className='card card-body mb-3'>

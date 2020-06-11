@@ -34,7 +34,6 @@ export default function CompetitionDetails(props) {
     console.log(error);
     return <p>Error</p>;
   };
-  if (data) console.log(data);
   const { name, plan, currentSeason } = data.competition;
 
   return (
