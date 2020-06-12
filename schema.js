@@ -59,12 +59,15 @@ const WinnerType = new GraphQLObjectType({
 
 // Team Type
 const TeamType = new GraphQLObjectType({
-  name: 'Teams',
-  fields: () => ({
-    id: { type: GraphQLInt },
-    name: { type: GraphQLString },
-    venue: { type: GraphQLString }
-  })
+	name: "Teams",
+	fields: () => ({
+		id: { type: GraphQLInt },
+		name: { type: GraphQLString },
+		crestUrl: { type: GraphQLString },
+    website: { type: GraphQLString },
+    founded: { type: GraphQLInt },
+		venue: { type: GraphQLString },
+	}),
 });
 
 
