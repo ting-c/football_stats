@@ -41,11 +41,11 @@ export default function CompetitionDetails(props) {
 		<div>
       <div className="card bg-primary text-white my-3">
         <h3 className="display-4 m-3" style={{ fontSize: "1.5rem" }}>
-          <span className="text-info">Competition: </span>
+          <span className="mr-3">Competition: </span>
           {name}
         </h3>
         <h3 className="display-4 m-3" style={{ fontSize: "1.5rem" }}>
-          <span className="text-info">Tier: </span>
+          <span className="mr-3">Tier: </span>
           {plan}
         </h3>
       </div>

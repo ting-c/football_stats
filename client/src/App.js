@@ -5,6 +5,7 @@ import { ApolloProvider } from "@apollo/react-hooks";
 import { BrowserRouter, Route } from 'react-router-dom';
 import Competitions from './components/Competitions';
 import CompetitionDetails from './components/CompetitionDetails';
+import TeamDetails from './components/TeamDetails';
 import logo from './logo.png';
 
 const client = new ApolloClient({
@@ -19,6 +20,7 @@ function App() {
         <img src={logo} alt="Football Stats" className='logo'/>
         <Route exact path='/' component={Competitions} />
         <Route exact path='/competition/:id' component={CompetitionDetails} />
+        <Route exact path='/teams/:id' component={TeamDetails} />
       </div>
     </BrowserRouter>
     </ApolloProvider>
