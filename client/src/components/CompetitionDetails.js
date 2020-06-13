@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { gql } from 'apollo-boost';
 import { useQuery } from '@apollo/react-hooks';
 import Teams from './Teams';
+import Standings from './Standings';
 
 const COMPETITION_QUERY = gql`
 	query CompetitionQuery($id: Int!) {
@@ -27,6 +28,9 @@ const COMPETITION_QUERY = gql`
 `;
 
 export default function CompetitionDetails(props) {
+
+	const [display, setDisplay] = useState('standings');
+
   const id = parseInt(props.match.params.id);
   
   const { loading, error, data } = useQuery(COMPETITION_QUERY, { variables: { id: id } });
@@ -35,20 +39,30 @@ export default function CompetitionDetails(props) {
     console.log(error);
     return <p>Error</p>;
   };
-  const { name, plan, currentSeason } = data.competition;
+	const { name, plan, currentSeason } = data.competition;
+	
+	const displayStandingsTeams = () => { 
+		switch (display) {
+			case 'standings':
+				return <Standings {...{ id }} />
+			case 'teams':
+				return <Teams {...{ id }} />
+			default:
+		}
+	};
 
   return (
 		<div>
-      <div className="card bg-primary text-white my-3">
-        <h3 className="display-4 m-3" style={{ fontSize: "1.5rem" }}>
-          <span className="mr-3">Competition: </span>
-          {name}
-        </h3>
-        <h3 className="display-4 m-3" style={{ fontSize: "1.5rem" }}>
-          <span className="mr-3">Tier: </span>
-          {plan}
-        </h3>
-      </div>
+			<div className="card bg-primary text-white my-3">
+				<h3 className="display-4 m-3" style={{ fontSize: "1.5rem" }}>
+					<span className="mr-3">Competition: </span>
+					{name}
+				</h3>
+				<h3 className="display-4 m-3" style={{ fontSize: "1.5rem" }}>
+					<span className="mr-3">Tier: </span>
+					{plan}
+				</h3>
+			</div>
 			<div className="card bg-info text-white">
 				<h3 className="display-4 my-2" style={{ fontSize: "1.5rem" }}>
 					<span className="mx-3">Current Season </span>
@@ -77,7 +91,21 @@ export default function CompetitionDetails(props) {
 					)}
 				</h3>
 			</div>
-			<Teams {...{ id }} />
+			<div className="btn-group my-2" role="group">
+				<button
+					className="btn btn-success"
+					onClick={() => setDisplay("standings")}
+				>
+					Standings
+				</button>
+				<button
+					className="btn btn-success"
+					onClick={() => setDisplay("teams")}
+				>
+					Teams
+				</button>
+			</div>
+			{displayStandingsTeams()}
 		</div>
 	);
 }

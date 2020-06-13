@@ -21,7 +21,7 @@ export default function Teams({ id }) {
 
 	if (loading) return <p>Loading...</p>;
 	if (error) {
-		console.log("Err", error);
+		console.log(error);
 		return <p>Error</p>;
 	}
 
