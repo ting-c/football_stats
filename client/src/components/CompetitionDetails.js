@@ -39,7 +39,7 @@ export default function CompetitionDetails(props) {
     console.log(error);
     return <p>Error</p>;
   };
-	const { name, plan, currentSeason } = data.competition;
+	const { name, plan, currentSeason, lastUpdated } = data.competition;
 	
 	const displayStandingsTeams = () => { 
 		switch (display) {
@@ -54,28 +54,28 @@ export default function CompetitionDetails(props) {
   return (
 		<div>
 			<div className="card bg-primary text-white my-3">
-				<h3 className="display-4 m-3" style={{ fontSize: "1.5rem" }}>
+				<div className="display-4 m-3" style={{ fontSize: "1.5rem" }}>
 					<span className="mr-3">Competition: </span>
 					{name}
-				</h3>
-				<h3 className="display-4 m-3" style={{ fontSize: "1.5rem" }}>
+				</div>
+				<div className="display-4 m-3" style={{ fontSize: "1.5rem" }}>
 					<span className="mr-3">Tier: </span>
 					{plan}
-				</h3>
+				</div>
 			</div>
 			<div className="card bg-info text-white">
-				<h3 className="display-4 my-2" style={{ fontSize: "1.5rem" }}>
+				<div className="display-4 my-2" style={{ fontSize: "1.5rem" }}>
 					<span className="mx-3">Current Season </span>
-				</h3>
-				<h3 className="display-4 my-2" style={{ fontSize: "1rem" }}>
-					<span className="mx-3">Start date: </span>
+				</div>
+				<div className="display-4 my-2" style={{ fontSize: "1rem" }}>
+					<span className="mx-3">Start: </span>
 					{currentSeason.startDate}
-				</h3>
-				<h3 className="display-4 my-2" style={{ fontSize: "1rem" }}>
-					<span className="mx-3">End Date: </span>
+				</div>
+				<div className="display-4 my-2" style={{ fontSize: "1rem" }}>
+					<span className="mx-3">End: </span>
 					{currentSeason.endDate}
-				</h3>
-				<h3 className="display-4 my-2" style={{ fontSize: "1rem" }}>
+				</div>
+				<div className="display-4 my-2" style={{ fontSize: "1rem" }}>
 					<span className="mx-3">Winner: </span>
 					{currentSeason.winner ? (
 						<>
@@ -89,7 +89,11 @@ export default function CompetitionDetails(props) {
 					) : (
 						<span>N/A</span>
 					)}
-				</h3>
+				</div>
+				<div className="my-2">
+					<span className="mx-3">Last Updated: </span>
+					{lastUpdated}
+				</div>
 			</div>
 			<div className="btn-group my-2" role="group">
 				<button
@@ -98,10 +102,7 @@ export default function CompetitionDetails(props) {
 				>
 					Standings
 				</button>
-				<button
-					className="btn btn-success"
-					onClick={() => setDisplay("teams")}
-				>
+				<button className="btn btn-success" onClick={() => setDisplay("teams")}>
 					Teams
 				</button>
 			</div>

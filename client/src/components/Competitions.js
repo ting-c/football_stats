@@ -32,7 +32,7 @@ function Competition() {
 
 	return (
     <div>
-      <h1 className="display-4 my-3">Competitions</h1>
+      <h1 className="display-4 my-3" style={{fontSize: '2rem', fontWeight: "800", textAlign: 'center'}}>Competitions</h1>
       {
         data.competitions
         .filter(competition => 
@@ -40,6 +40,7 @@ function Competition() {
         .map( competition => 
           <CompetitionItem {...competition}  key={competition.id}/> )
       }
+      <p style={{fontSize: '0.7rem', fontStyle: 'italic'}}>Logo images are sourced from Wikipedia</p>
     </div>
 	);
 }

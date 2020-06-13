@@ -31,7 +31,6 @@ const STANDINGS_QUERY = gql`
 `;
 
 export default function Standings({ id }) {
-  console.log(id);
 	const { loading, error, data } = useQuery(STANDINGS_QUERY, {
 		variables: { competition_id: id }
 	});
@@ -41,27 +40,55 @@ export default function Standings({ id }) {
 		console.log(error);
 		return <p>Error</p>;
   }
-  console.log(data.standings);
-
-  
 
 	return (
 		<>
-			<h1 className="display-2 mt-3 mb-2" style={{ fontSize: "2rem" }}>
+			<div className="display-2 mt-3 mb-2 p-2 bg-primary text-white text-center" style={{ fontSize: "2rem" }}>
 				Standings
-			</h1>
-			<ul>
-				KEY:
-				<li># = Position</li>
-				<li>P = Games Played</li>
-				<li>W = Win</li>
-				<li>D = Draw</li>
-				<li>L = Lost</li>
-				<li>GF = Goals For</li>
-				<li>GA = Goals Against</li>
-				<li>GD = Goals Difference</li>
-				<li>Pt = Points</li>
-			</ul>
+			</div>
+			<div className="bg-light mb-4 p-2 shadow-sm">
+        KEY
+				<table className='table table-sm table-striped table-borderless table-responsive'>
+          <tbody>
+            <tr>
+              <th>#</th>
+              <td>Position</td>
+            </tr>
+            <tr>
+              <th>P</th>
+              <td>Games Played</td>
+            </tr>
+            <tr>
+              <th>W</th>
+              <td>Win</td>
+            </tr>
+            <tr>
+              <th>D</th>
+              <td>Draw</td>
+            </tr>
+            <tr>
+              <th>L</th>
+              <td>Lost</td>
+            </tr>
+            <tr>
+              <th>Pt</th>
+              <td>Points</td>
+            </tr>
+            <tr>
+              <th>GF</th>
+              <td>Goals For</td>
+            </tr>
+            <tr>
+              <th>GA</th>
+              <td>Goals Against</td>
+            </tr>
+            <tr>
+              <th>GD</th>
+              <td>Goals Difference</td>
+            </tr>
+          </tbody>
+				</table>
+			</div>
 			{data.standings
 				.filter((standings) => standings.type === "TOTAL")
 				.map((standings, idx) => (
