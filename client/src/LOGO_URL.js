@@ -32,7 +32,7 @@ const LOGO_URL = {
 	"Primera Division":
 		"https://upload.wikimedia.org/wikipedia/en/3/35/La_Liga.png",
 
-	"FIFA WORLD CUP":
+	"FIFA World Cup":
 		"https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/FIFA_World_Cup_wordmark.svg/330px-FIFA_World_Cup_wordmark.svg.png",
 };
 

@@ -27,10 +27,15 @@ export default function Teams({ id }) {
 
   return (
 		<div>
-			<h1 className="display-2 mt-3 mb-2" style={{fontSize: '2rem'}}>Teams</h1>
+			<div
+				className="display-2 mt-3 mb-2 p-2 bg-primary text-white text-center"
+				style={{ fontSize: "2rem" }}
+			>
+				Teams
+			</div>
 			{data.teams.map((team) => (
-					<TeamItem {...team} key={team.id} />
-				))}
+				<TeamItem {...team} key={team.id} />
+			))}
 		</div>
 	);
 }

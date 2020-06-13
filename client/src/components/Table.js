@@ -3,11 +3,11 @@ import React from 'react'
 export default function Table({ group, stage, type, table }) {
   return (
 		<div className="card">
-			<div className="card-header bg-dark text-white">
-				<h1 className="display-2 mt-2 mb-1" style={{ fontSize: "1rem" }}>
-					<span>{stage} - </span>
-					<span>{group} - </span>
-					<span>{type}</span>
+			<div className="card-header bg-dark text-white ">
+				<h1 className="mt-2 mb-1 d-flex justify-content-around" style={{ fontSize: "1rem" }}>
+					<span>{ stage ? stage.replace("_", " ") : null }</span>
+					<span>{ group ? group.replace("_", " ") : null }</span>
+					<span>{ type ? type.replace("_", " ") : null }</span>
 				</h1>
 			</div>
 			<table
