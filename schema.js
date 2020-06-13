@@ -70,6 +70,32 @@ const TeamType = new GraphQLObjectType({
 	}),
 });
 
+const StandingType = new GraphQLObjectType({
+	name: "Standing",
+	fields: () => ({
+		stage: { type: GraphQLString },
+		type: { type: GraphQLString },
+		group: { type: GraphQLString },
+    table: { type: new GraphQLList(TableStatsType) }
+	}),
+});
+
+const TableStatsType = new GraphQLObjectType({
+	name: "TableStats",
+	fields: () => ({
+		position: { type: GraphQLInt },
+		team: { type: TeamType },
+		group: { type: GraphQLString },
+		playedGames: { type: GraphQLInt },
+		won: { type: GraphQLInt },
+		draw: { type: GraphQLInt },
+		lost: { type: GraphQLInt },
+		points: { type: GraphQLInt },
+		goalsFor: { type: GraphQLInt },
+		goalsAgainst: { type: GraphQLInt },
+		goalDifference: { type: GraphQLInt }
+	}),
+});
 
 // Root Query
 const RootQuery = new GraphQLObjectType({
@@ -119,7 +145,20 @@ const RootQuery = new GraphQLObjectType({
         );
         return response.data;
       }
-    }
+    },
+    standings: {
+      type: new GraphQLList(StandingType),
+      args: {
+        competition_id: { type: GraphQLInt }
+      },
+      async resolve(parent, args) {
+        const response = await axios.get(
+          `http://api.football-data.org/v2/competitions/${args.competition_id}/standings`,
+          { headers }
+        );
+        return response.data.standings;
+      }
+    },
   }
 });
 
