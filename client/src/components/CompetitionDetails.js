@@ -3,6 +3,7 @@ import { gql } from 'apollo-boost';
 import { useQuery } from '@apollo/react-hooks';
 import Teams from './Teams';
 import Standings from './Standings';
+import CompetitionMatches from './CompetitionMatches';
 import LOGO_URL from '../LOGO_URL';
 
 const COMPETITION_QUERY = gql`
@@ -42,13 +43,14 @@ export default function CompetitionDetails(props) {
     return <p>Error</p>;
   };
 	const { name, plan, currentSeason, lastUpdated } = data.competition;
-	console.log(data);
 	const displayStandingsTeams = () => { 
 		switch (display) {
 			case 'standings':
 				return <Standings {...{ id }} />
 			case 'teams':
 				return <Teams {...{ id }} />
+			case 'matches':
+				return <CompetitionMatches {...{ id }} />
 			default:
 		}
 	};
@@ -105,8 +107,15 @@ export default function CompetitionDetails(props) {
 				>
 					Standings
 				</button>
-				<button className="btn btn-success" onClick={() => setDisplay("teams")}>
+				<button 
+					className="btn btn-success" 
+					onClick={() => setDisplay("teams")}>
 					Teams
+				</button>
+				<button 
+					className="btn btn-success" 
+					onClick={() => setDisplay("matches")}>
+					Matches
 				</button>
 			</div>
 			{displayStandingsTeams()}

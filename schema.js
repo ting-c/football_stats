@@ -97,69 +97,163 @@ const TableStatsType = new GraphQLObjectType({
 	}),
 });
 
+const MatchType = new GraphQLObjectType({
+	name: "Match",
+	fields: () => ({
+		id: { type: GraphQLInt },
+		season: { type: SeasonType },
+		utcDate: { type: GraphQLString },
+		status: { type: GraphQLString },
+		matchday: { type: GraphQLInt },
+		stage: { type: GraphQLString },
+		group: { type: GraphQLString },
+		lastUpdated: { type: GraphQLString },
+		score: { type: ScoreType },
+		homeTeam: { type: TeamType },
+		awayTeam: { type: TeamType },
+		referees: { type: new GraphQLList(PlayerType) },
+	}),
+});
+
+const SeasonType = new GraphQLObjectType({
+  name: "Season",
+  fields: () => ({
+    id: { type: GraphQLInt },
+    startDate: { type: GraphQLString },
+    endDate: { type: GraphQLString },
+    currentMatchday: { type: GraphQLInt },
+    winner: { type: GraphQLString }
+  })
+});
+
+const PlayerType = new GraphQLObjectType({
+	name: "Player",
+	fields: () => ({
+		id: { type: GraphQLInt },
+		name: { type: GraphQLString },
+		firstName: { type: GraphQLString },
+		lastName: { type: GraphQLString },
+		dateOfBirth: { type: GraphQLString },
+		countryOfBirth: { type: GraphQLString },
+		nationality: { type: GraphQLString },
+		position: { type: GraphQLString },
+		shirtNumber: { type: GraphQLInt },
+		lastUpdated: { type: GraphQLString }
+	}),
+});
+
+const ScoreType = new GraphQLObjectType({
+	name: "Score",
+	fields: () => ({
+		winner: { type: GraphQLString },
+		duration: { type: GraphQLString },
+		fullTime: { type: HomeAndAwayScoreType },
+		halfTime: { type: HomeAndAwayScoreType },
+		extraTime: { type: HomeAndAwayScoreType },
+		penalties: { type: HomeAndAwayScoreType }
+	}),
+});
+
+const HomeAndAwayScoreType = new GraphQLObjectType({
+	name: "HomeAndAwayScore",
+	fields: () => ({
+		homeTeam: { type: GraphQLInt },
+		awayTeam: { type: GraphQLInt }
+	}),
+});
+
 // Root Query
 const RootQuery = new GraphQLObjectType({
-  name: 'RootQueryType',
-  fields: {
-    competitions: {
-      type: new GraphQLList(CompetitionType),
-      async resolve(parent, args) {
-        const response = await axios.get(`http://api.football-data.org/v2/competitions`);
-        return response.data.competitions;
-      }
-    },
-    competition: {
-      type: CompetitionType,
-      args: {
-        id: { type: GraphQLInt }
-      },
-      async resolve(parent, args) {
-        const response = await axios.get(
-          `http://api.football-data.org/v2/competitions/${args.id}`, 
-          { headers }
-        );
-        return response.data;
-      }      
-    },
-    teams: {
-      type: new GraphQLList(TeamType),
-      args: {
-        competition_id: { type: GraphQLInt }
-      },
-      async resolve(parent, args) {
-        const response = await axios.get(`http://api.football-data.org/v2/competitions/${args.competition_id}/teams`,
-          { headers }
-        );
-        return response.data.teams;
-      }
-    },
-    team: {
-      type: TeamType,
-      args: {
-        id: { type: GraphQLInt }
-      },
-      async resolve(parent, args) {
-        const response = await axios.get(
-          `http://api.football-data.org/v2/teams/${args.id}`,
-          { headers }
-        );
-        return response.data;
-      }
-    },
-    standings: {
-      type: new GraphQLList(StandingType),
-      args: {
-        competition_id: { type: GraphQLInt }
-      },
-      async resolve(parent, args) {
-        const response = await axios.get(
-          `http://api.football-data.org/v2/competitions/${args.competition_id}/standings`,
-          { headers }
-        );
-        return response.data.standings;
-      }
-    },
-  }
+	name: "RootQueryType",
+	fields: {
+		competitions: {
+			type: new GraphQLList(CompetitionType),
+			async resolve(parent, args) {
+				const response = await axios.get(
+					`http://api.football-data.org/v2/competitions`
+				);
+				return response.data.competitions;
+			},
+		},
+		competition: {
+			type: CompetitionType,
+			args: {
+				id: { type: GraphQLInt },
+			},
+			async resolve(parent, args) {
+				const response = await axios.get(
+					`http://api.football-data.org/v2/competitions/${args.id}`,
+					{ headers }
+				);
+				return response.data;
+			},
+		},
+		teams: {
+			type: new GraphQLList(TeamType),
+			args: {
+				competition_id: { type: GraphQLInt },
+			},
+			async resolve(parent, args) {
+				const response = await axios.get(
+					`http://api.football-data.org/v2/competitions/${args.competition_id}/teams`,
+					{ headers }
+				);
+				return response.data.teams;
+			},
+		},
+		team: {
+			type: TeamType,
+			args: {
+				id: { type: GraphQLInt },
+			},
+			async resolve(parent, args) {
+				const response = await axios.get(
+					`http://api.football-data.org/v2/teams/${args.id}`,
+					{ headers }
+				);
+				return response.data;
+			},
+		},
+		standings: {
+			type: new GraphQLList(StandingType),
+			args: {
+				competition_id: { type: GraphQLInt },
+			},
+			async resolve(parent, args) {
+				const response = await axios.get(
+					`http://api.football-data.org/v2/competitions/${args.competition_id}/standings`,
+					{ headers }
+				);
+				return response.data.standings;
+			},
+		},
+		competition_matches: {
+			type: new GraphQLList(MatchType),
+			args: {
+				competition_id: { type: GraphQLInt },
+			},
+			async resolve(parent, args) {
+				const response = await axios.get(
+					`http://api.football-data.org/v2/competitions/${args.competition_id}/matches`,
+					{ headers }
+				);
+				return response.data.matches;
+			},
+		},
+		team_matches: {
+			type: new GraphQLList(MatchType),
+			args: {
+				match_id: { type: GraphQLInt },
+			},
+			async resolve(parent, args) {
+				const response = await axios.get(
+					`http://api.football-data.org/v2/teams/${args.match_id}/matches`,
+					{ headers }
+				);
+				return response.data.matches;
+			},
+		},
+	},
 });
 
 module.exports = new GraphQLSchema({
