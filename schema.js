@@ -63,6 +63,8 @@ const TeamType = new GraphQLObjectType({
 	fields: () => ({
 		id: { type: GraphQLInt },
 		name: { type: GraphQLString },
+		area: { type: AreaType },
+		activeCompetitions: { type: new GraphQLList(CompetitionType) },
 		crestUrl: { type: GraphQLString },
     website: { type: GraphQLString },
     founded: { type: GraphQLInt },
@@ -274,11 +276,11 @@ const RootQuery = new GraphQLObjectType({
 		team_matches: {
 			type: new GraphQLList(MatchType),
 			args: {
-				match_id: { type: GraphQLInt },
+				team_id: { type: GraphQLInt },
 			},
 			async resolve(parent, args) {
 				const response = await axios.get(
-					`http://api.football-data.org/v2/teams/${args.match_id}/matches`,
+					`http://api.football-data.org/v2/teams/${args.team_id}/matches`,
 					{ headers }
 				);
 				return response.data.matches;

@@ -3,3 +3,8 @@
   display: block;
   margin: auto;
 }
+
+a {
+  text-decoration: none;
+  color: rgb(0, 35, 80);
+}

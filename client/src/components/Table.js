@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default function Table({ group, stage, type, table }) {
   return (
@@ -45,7 +46,7 @@ export default function Table({ group, stage, type, table }) {
 						return (
 							<tr key={position}>
 								<th scope="row">{position}</th>
-								<td>{team.name}</td>
+								<td><Link to={`/teams/${team.id}`}>{team.name}</Link></td>
 								<td>{playedGames}</td>
 								<td>{won}</td>
 								<td>{draw}</td>

@@ -14,13 +14,13 @@ export default function CompetitionItem({
 				style={{ color: "black", textDecoration: "none" }}
 			>
 				<div className="card-body d-flex flex-column align-items-center">
-					<div className="row" style={{ fontSize: "1.8rem" }}>
+					<div className="row text-center" style={{ fontSize: "1.8rem" }}>
 						{name}
 					</div>
-					<div className="row">
+					<div className="row d-flex justify-content-center">
 						<img
 							className="m-2 align-items-center"
-							style={{ height: "5rem", maxWidth: "100%" }}
+							style={{ height: "5rem", maxWidth: "70%" }}
 							src={LOGO_URL[name]}
 							alt="Logo"
 						/>

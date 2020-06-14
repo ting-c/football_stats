@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { gql } from "apollo-boost";
 import { useQuery } from "@apollo/react-hooks";
 import MatchItem from './MatchItem';
+import Spinner from './Spinner';
 
 const COMPETITION_MATCHES_QUERY = gql`
 	query CompetitionMatchesQuery($competition_id: Int!) {
@@ -39,17 +40,19 @@ export default function CompetitionMatches({ id }) {
 		variables: { competition_id: id },
   });
 
-	if (loading) return <p>Loading...</p>;
+	if (loading) {
+    return <Spinner/>
+  };
 	if (error) {
 		console.log(error);
 		return <p>Error</p>;
-  }
+  };
   
 	return (
 		<div>
 			<div
 				className="display-2 mt-2 p-2 bg-primary text-white text-center"
-				style={{ fontSize: "2rem" }}
+				style={{ fontSize: "1.8rem" }}
 			>
 				Matches
 			</div>
@@ -66,7 +69,9 @@ export default function CompetitionMatches({ id }) {
           />
         </span>
 			</div>
-      <MatchItem {...{data, matchDay}} />
+      { data.competition_matches
+      .filter((match) => match.matchday === parseInt(matchDay))
+      .map((match, idx) => <MatchItem {...{match}} key={idx} />) }
 		</div>
 	);
 }
