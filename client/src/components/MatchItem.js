@@ -13,19 +13,19 @@ const MatchItem = ({ match }) => {
 				</div>
 				<div className="row my-3 text-center">
 					<div className="col-4" style={{ fontSize: "0.9rem" }}>
-						{`${match.homeTeam.name}`}
+						<Link to={`/teams/${match.homeTeam.id}`}>{`${match.homeTeam.name}`}</Link>
 					</div>
 					<div className="col-4" style={{ fontSize: "1rem" }}>
 						{`${match.score.fullTime.homeTeam} - ${match.score.fullTime.awayTeam}`}
 					</div>
 					<div className="col-4" style={{ fontSize: "0.9rem" }}>
-						{`${match.awayTeam.name}`}
+						<Link to={`/teams/${match.awayTeam.id}`}>{`${match.awayTeam.name}`}</Link>
 					</div>
 				</div>
 				{	match.competition ? (
 					<div className="row my-1 d-flex justify-content-center text-center">
 						<Link to={`/competition/${match.competition.id}`}>
-							<img src={LOGO_URL[match.competition.name]} style={{height: '3rem'}} alt='Competition Logo' />
+							<img src={LOGO_URL[match.competition.name]} style={{height: '2.7rem'}} alt='Competition Logo' />
 						</Link>
 					</div>		
 					)	: null
