@@ -59,8 +59,11 @@ export default function CompetitionMatches({ id }) {
 			>
 				Match Day 
         <span className='mx-3'>
-          <input style={{width: '30%'}} onChange={(e) => setMatchDay(e.target.value)}/>
-          {/* <button className='btn text-white' onClick={} >Search</button> */}
+          <input 
+            style={{width: '30%'}} 
+            value={matchDay}
+            onChange={(e) => setMatchDay(e.target.value)}
+          />
         </span>
 			</div>
       <MatchItem {...{data, matchDay}} />

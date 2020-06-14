@@ -100,10 +100,12 @@ const TableStatsType = new GraphQLObjectType({
 const MatchType = new GraphQLObjectType({
 	name: "Match",
 	fields: () => ({
-		id: { type: GraphQLInt },
+    id: { type: GraphQLInt },
+    competition: { type: CompetitionType },
 		season: { type: SeasonType },
 		utcDate: { type: GraphQLString },
-		status: { type: GraphQLString },
+    status: { type: GraphQLString },
+    venue: { type: GraphQLString },
 		matchday: { type: GraphQLInt },
 		stage: { type: GraphQLString },
 		group: { type: GraphQLString },
@@ -112,6 +114,35 @@ const MatchType = new GraphQLObjectType({
 		homeTeam: { type: TeamType },
 		awayTeam: { type: TeamType },
 		referees: { type: new GraphQLList(PlayerType) },
+	}),
+});
+
+const MatchAndHead2HeadType = new GraphQLObjectType({
+	name: "MatchAndHead2Head",
+	fields: () => ({
+		head2head: { type: Head2HeadType },
+		match: { type: MatchType }
+	})
+});
+
+const Head2HeadType = new GraphQLObjectType({
+	name: "Head2Head",
+	fields: () => ({
+		numberOfMatches: { type: GraphQLInt },
+		totalGoals: { type: GraphQLInt },
+		homeTeam: { type: Head2HeadTeamType },
+		awayTeam: { type: Head2HeadTeamType },
+	})
+});
+
+const Head2HeadTeamType = new GraphQLObjectType({
+	name: "Head2HeadTeamType",
+	fields: () => ({
+		id: { type: GraphQLInt },
+		name: { type: GraphQLString },
+		wins: { type: GraphQLInt },
+		draws: { type: GraphQLInt },
+		losses: { type: GraphQLInt },
 	}),
 });
 
@@ -251,6 +282,19 @@ const RootQuery = new GraphQLObjectType({
 					{ headers }
 				);
 				return response.data.matches;
+			},
+		},
+		match_and_head2head: {
+			type: MatchAndHead2HeadType,
+			args: {
+				match_id: { type: GraphQLInt },
+			},
+			async resolve(parent, args) {
+				const response = await axios.get(
+					`http://api.football-data.org/v2/matches/${args.match_id}`,
+					{ headers }
+				);
+				return response.data;
 			},
 		},
 	},

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from 'react-router-dom';
 import moment from 'moment';
 
 const MatchItem = ({ data, matchDay }) => {
@@ -6,7 +7,7 @@ const MatchItem = ({ data, matchDay }) => {
   console.log(data, matchDay);
   
 	return data.competition_matches
-		.filter((match) => match.matchday == matchDay)
+		.filter((match) => match.matchday === parseInt(matchDay))
 		.map((match, idx) => (
 			<div key={idx} className="card bg-light m-1 shadow-sm">
 				<div className="container p-2">
@@ -21,9 +22,11 @@ const MatchItem = ({ data, matchDay }) => {
 						<div className="col-4">{`${match.awayTeam.name}`}</div>
 					</div>
           <div className='text-center'>
-            <button className='btn btn-primary text-center' style={{fontSize: '0.8rem'}}>
-              Match Details
-            </button>
+            <Link to={`/match/${match.id}`}>
+              <button className='btn btn-primary text-center' style={{fontSize: '0.8rem'}}>
+                Match Details
+              </button>
+            </Link>
           </div>
 				</div>
 			</div>
