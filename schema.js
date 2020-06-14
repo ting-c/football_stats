@@ -175,6 +175,15 @@ const PlayerType = new GraphQLObjectType({
 	}),
 });
 
+const ScorerType = new GraphQLObjectType({
+	name: "Scorer",
+	fields: () => ({
+		player: { type: PlayerType },
+		team: { type: TeamType },
+		numberOfGoals: { type: GraphQLInt }
+	})
+});
+
 const ScoreType = new GraphQLObjectType({
 	name: "Score",
 	fields: () => ({
@@ -299,6 +308,33 @@ const RootQuery = new GraphQLObjectType({
 				return response.data;
 			},
 		},
+		scorers: {
+			type: new GraphQLList(ScorerType),
+			args: {
+				competition_id: { type: GraphQLInt },
+			},
+			async resolve(parent, args) {
+				const response = await axios.get(
+					`http://api.football-data.org/v2/competitions/${args.competition_id}/scorers`,
+					{ headers }
+				);
+				return response.data.scorers;
+			}
+		},
+		player: {
+			type: PlayerType,
+			args: {
+				player_id: { type: GraphQLInt },
+			},
+			async resolve(parent, args) {
+				const response = await axios.get(
+					`http://api.football-data.org/v2/players/${args.player_id}`,
+					{ headers }
+				);
+				return response.data;
+			}
+		},
+
 	},
 });
 

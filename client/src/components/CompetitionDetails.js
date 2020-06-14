@@ -5,6 +5,7 @@ import moment from 'moment';
 import Teams from './Teams';
 import Standings from './Standings';
 import CompetitionMatches from './CompetitionMatches';
+import Scorers from './Scorers';
 import LOGO_URL from '../LOGO_URL';
 import Spinner from './Spinner';
 
@@ -59,6 +60,8 @@ export default function CompetitionDetails(props) {
 				return <Teams {...{ id }} />;
 			case "matches":
 				return <CompetitionMatches {...{ id }} />;
+			case "scorers":
+				return <Scorers {...{ id }} />;
 			default:
 				return
 		}
@@ -137,6 +140,12 @@ export default function CompetitionDetails(props) {
 					onClick={() => setDisplay("matches")}
 				>
 					Matches
+				</button>
+				<button
+					className="btn btn-success"
+					onClick={() => setDisplay("scorers")}
+				>
+					Scorers
 				</button>
 			</div>
 			{displayStandingsTeams()}

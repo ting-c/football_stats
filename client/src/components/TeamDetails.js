@@ -55,7 +55,7 @@ export default function TeamDetails(props) {
 	return (
 		<>
 			<div className="container bg-light text-primary">
-				<div className="row p-1 d-flex justify-content-center">
+				<div className="row p-3 d-flex justify-content-center">
 					{crestUrl ? (
 						<img src={crestUrl} alt="Team Crest" style={{ height: "4rem" }} />
 					) : null}
