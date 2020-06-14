@@ -24,7 +24,9 @@ const MatchItem = ({ match }) => {
 				</div>
 				{	match.competition ? (
 					<div className="row my-1 d-flex justify-content-center text-center">
-						<img src={LOGO_URL[match.competition.name]} style={{height: '3rem'}} alt='Competition Logo' /> 
+						<Link to={`/competition/${match.competition.id}`}>
+							<img src={LOGO_URL[match.competition.name]} style={{height: '3rem'}} alt='Competition Logo' />
+						</Link>
 					</div>		
 					)	: null
 				}
