@@ -1,8 +1,7 @@
 import React from 'react';
 import { MockedProvider } from '@apollo/react-testing';
-import { render, getByTestId } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import { PlayerDetails, PLAYER_QUERY } from '../PlayerDetails';
-import wait from 'waait';
 import { act } from 'react-dom/test-utils';
 
 const mocks = [
