@@ -84,6 +84,29 @@ const MATCH_QUERY = gql`
   }
 `;
 
+const ScoreLines = (match) => {
+	const timeIntervals = {
+		fullTime: 'Full Time',
+		halfTime: 'Half Time',
+		extraTime: 'Extra Time',
+		penalties: 'Penalties'
+	};
+
+	return ( 
+		Object.keys(timeIntervals)
+		.filter( interval => match.score[interval].homeTeam !== null)
+		.map(interval => (
+			<tr>
+				<td>{timeIntervals[interval]}</td>
+				<td>
+					{match.score[interval].homeTeam}
+					<span className="mx-3">-</span>
+					{match.score[interval].awayTeam}
+				</td>
+			</tr>
+	)))
+}
+
 const MatchDetails = (props) => {
 	const id = parseInt(props.match.params.id);
 
@@ -188,46 +211,7 @@ const MatchDetails = (props) => {
 							))}
 						</td>
 					</tr>
-					{match.score.fullTime.homeTeam !== null ? (
-						<tr>
-							<td>Full Time</td>
-							<td>
-								{match.score.fullTime.homeTeam}
-								<span className="mx-3">-</span>
-								{match.score.fullTime.awayTeam}
-							</td>
-						</tr>
-					) : null}
-					{match.score.halfTime.homeTeam !== null ? (
-						<tr>
-							<td>Half Time</td>
-							<td>
-								{match.score.halfTime.homeTeam}
-								<span className="mx-3">-</span>
-								{match.score.halfTime.awayTeam}
-							</td>
-						</tr>
-					) : null}
-					{match.score.extraTime.homeTeam !== null ? (
-						<tr>
-							<td>Extra Time</td>
-							<td>
-								{match.score.extraTime.homeTeam}
-								<span className="mx-3">-</span>
-								{match.score.extraTime.awayTeam}
-							</td>
-						</tr>
-					) : null}
-					{match.score.penalties.homeTeam !== null ? (
-						<tr>
-							<td>Penalties</td>
-							<td>
-								{match.score.penalties.homeTeam}
-								<span className="mx-3">-</span>
-								{match.score.penalties.awayTeam}
-							</td>
-						</tr>
-					) : null}
+					{ ScoreLines(match) }
 					<tr>
 						<td>Last Updated</td>
 						<td>{moment.utc(match.lastUpdated).toString()}</td>
