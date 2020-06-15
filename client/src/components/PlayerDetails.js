@@ -4,13 +4,11 @@ import { useQuery } from "@apollo/react-hooks";
 import moment from 'moment';
 import Spinner from "./Spinner";
 
-const PLAYER_QUERY = gql`
+export const PLAYER_QUERY = gql`
 	query PlayerQuery($player_id: Int!) {
 		player(player_id: $player_id) {
       id,
       name,
-      firstName,
-      lastName,
       dateOfBirth,
       countryOfBirth,
       nationality,
@@ -21,7 +19,7 @@ const PLAYER_QUERY = gql`
 	}
 `;
 
-const PlayerDetails = (props) => {
+export const PlayerDetails = (props) => {
 	const id = parseInt(props.match.params.id);
 
 	const { loading, error, data } = useQuery(PLAYER_QUERY, {

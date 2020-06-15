@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function Spinner() {
   return (
-		<div className="container">
+		<div className="container" data-testid='spinner'>
 			<div className="row d-flex justify-content-center">
 				<div
 					className="spinner-border text-info"
