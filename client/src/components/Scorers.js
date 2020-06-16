@@ -4,7 +4,7 @@ import { useQuery } from "@apollo/react-hooks";
 import { Link } from 'react-router-dom';
 import Spinner from "./Spinner";
 
-const SCORERS_QUERY = gql`
+export const SCORERS_QUERY = gql`
 	query ScorersQuery($competition_id: Int!) {
 		scorers(competition_id: $competition_id) {
 			player {
