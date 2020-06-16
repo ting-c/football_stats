@@ -1,7 +1,7 @@
 Football Stats App
 
 ## General info
-An app that uses data from a [REST API] (https://www.football-data.org/) to display football stats.
+An app that uses data from a REST API (https://www.football-data.org/) to display football stats.
 	
 ## Technologies
 Project is created with:
