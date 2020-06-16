@@ -9,7 +9,7 @@ import Scorers from './Scorers';
 import LOGO_URL from '../LOGO_URL';
 import Spinner from './Spinner';
 
-const COMPETITION_QUERY = gql`
+export const COMPETITION_QUERY = gql`
 	query CompetitionQuery($id: Int!) {
 		competition(id: $id) {
 			name
@@ -23,8 +23,6 @@ const COMPETITION_QUERY = gql`
 				winner {
 					id
 					name
-					shortName
-					tla
 					crestUrl
 				}
 			}
@@ -34,7 +32,7 @@ const COMPETITION_QUERY = gql`
 `;
 
 export default function CompetitionDetails(props) {
-	const [display, setDisplay] = useState("standings");
+	const [display, setDisplay] = useState("null");
 
 	const id = parseInt(props.match.params.id);
 
